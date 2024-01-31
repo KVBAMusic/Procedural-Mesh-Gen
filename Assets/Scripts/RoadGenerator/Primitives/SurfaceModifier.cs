@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 
+namespace MeshGenRoads {
+
 [Serializable]
 public class SurfaceModifier {
     [SerializeField] private float nearStart = 0;
@@ -21,3 +23,6 @@ public class SurfaceModifier {
     }
 
 }
+
+}
+

@@ -1,5 +1,8 @@
 using UnityEngine;
 
-public interface IMeshGenerator {
-    public Mesh Generate();
+namespace MeshGenRoads {
+
+    public interface IMeshGenerator {
+        public Mesh Generate();
+    }
 }

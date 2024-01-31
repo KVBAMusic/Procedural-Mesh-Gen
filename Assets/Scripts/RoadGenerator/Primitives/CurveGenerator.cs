@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace MeshGenRoads {
+
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
 public class CurveGenerator : MonoBehaviour, IMeshGenerator {
@@ -98,3 +100,6 @@ public class CurveGenerator : MonoBehaviour, IMeshGenerator {
     }
 
 }
+
+}
+

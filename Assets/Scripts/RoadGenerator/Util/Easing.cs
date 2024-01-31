@@ -1,3 +1,5 @@
+namespace MeshGenRoads {
+
 public enum Easing {
     Linear,
     EaseIn,
@@ -10,3 +12,6 @@ public enum Easing {
     CircularOut,
     CircularInOut
 }
+
+}
+

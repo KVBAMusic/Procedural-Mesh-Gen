@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public static class EasingFunction {
+namespace MeshGenRoads {
+    public static class EasingFunction {
     public static float EaseIn(float t) {
         return 1 - Mathf.Cos(t * Mathf.PI / 2);
     }
@@ -52,4 +53,5 @@ public static class EasingFunction {
             Easing.CircularInOut => CircularInOut(t),
             _ => t
         };
+}
 }

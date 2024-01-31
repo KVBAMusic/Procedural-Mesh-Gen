@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace MeshGenRoads {
+
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
 public class StraightRoadGenerator : MonoBehaviour, IMeshGenerator {
@@ -85,3 +87,5 @@ public class StraightRoadGenerator : MonoBehaviour, IMeshGenerator {
         return mesh;
     }
 }
+}
+

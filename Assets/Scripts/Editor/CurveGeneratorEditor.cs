@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using MeshGenRoads;
 
 [CustomEditor(typeof(CurveGenerator))]
 public class CurveGeneratorEditor : Editor {

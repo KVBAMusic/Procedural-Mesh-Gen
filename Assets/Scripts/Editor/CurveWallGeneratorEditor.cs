@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using MeshGenRoads;
 
 [CustomEditor(typeof(CurveWallGenerator))]
 public class CurveWallGeneratorEditor : Editor {

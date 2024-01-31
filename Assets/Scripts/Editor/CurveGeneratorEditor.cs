@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using MeshGenRoads;
 
+[CanEditMultipleObjects]
 [CustomEditor(typeof(CurveGenerator))]
 public class CurveGeneratorEditor : Editor {
     public override void OnInspectorGUI() {

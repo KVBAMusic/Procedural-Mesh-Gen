@@ -10,7 +10,10 @@ public enum Easing {
     QuadInOut,
     CircularIn,
     CircularOut,
-    CircularInOut
+    CircularInOut,
+    ExponentialIn,
+    ExponentialOut,
+    ExponentialInOut,
 }
 
 }

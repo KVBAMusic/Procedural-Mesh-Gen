@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace MeshGenRoads {
-    public static class EasingFunction {
+public static class EasingFunction {
     public static float EaseIn(float t) {
         return 1 - Mathf.Cos(t * Mathf.PI / 2);
     }
@@ -40,6 +40,21 @@ namespace MeshGenRoads {
             : (Mathf.Sqrt(1 - Mathf.Pow(-2 * t + 2, 2)) + 1) / 2;
     }
 
+    public static float ExponentialIn(float t) {
+        return t == 0f ? 0f : Mathf.Pow(2, 10 * t - 10);
+    }
+
+    public static float ExponentialOut(float t) {
+        return t == 1f ? 1f : Mathf.Pow(2, -10f * t);
+    }
+
+    public static float ExponentialInOut(float t) {
+            if (t == 0) return 0;
+            if (t == 1) return 1;
+            if (t < .5f) return Mathf.Pow(2, 20 * t - 10) / 2;
+            return (2 - Mathf.Pow(2, -20 * t + 10)) / 2;
+    }
+
     public static float Evaluate(float t, Easing e) => e switch {
             Easing.Linear => t,
             Easing.EaseIn => EaseIn(t),
@@ -51,6 +66,9 @@ namespace MeshGenRoads {
             Easing.CircularIn => CircularIn(t),
             Easing.CircularOut => CircularOut(t),
             Easing.CircularInOut => CircularInOut(t),
+            Easing.ExponentialIn => ExponentialIn(t),
+            Easing.ExponentialOut => ExponentialOut(t),
+            Easing.ExponentialInOut => ExponentialInOut(t),
             _ => t
         };
 }

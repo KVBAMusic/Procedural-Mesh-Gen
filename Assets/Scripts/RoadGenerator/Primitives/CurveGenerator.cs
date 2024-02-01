@@ -7,8 +7,8 @@ namespace MeshGenRoads {
 [RequireComponent(typeof(MeshFilter))]
 public class CurveGenerator : MonoBehaviour, IMeshGenerator {
     [Header("Geometry")]
-    public float radius;
-    public float width;
+    public float margin = 1;
+    public CornerSize cornerSize;
     public uint subdivisions;
     public uint widthSubdivisions;
     [Header("Materials")]
@@ -18,22 +18,29 @@ public class CurveGenerator : MonoBehaviour, IMeshGenerator {
     public bool absolute = false;
     public SurfaceModifier modifier = new();
 
+        public float Radius => cornerSize switch {
+            CornerSize.Small => 10f,
+            CornerSize.Medium => 20f,
+            CornerSize.Large => 30f,
+            _ => 10f
+        };
 
     public Mesh Generate() {
-        if (radius < 0f || width < 0f) {
-            Debug.LogError("Radius and width cannot be negative");
+        if (margin < 0f) {
+            Debug.LogError("Margin cannot be negative");
             return null;
         }
 
-        float size = radius + width + 1;
+        float nearRadius = margin + Radius - 10f;
+        float farRadius = Radius - margin;
 
         List<Vector3> verts = new();
         List<int> inds = new();
         List<Vector2> uvs = new();
         Mesh mesh = new();
 
-        Vector3 nearPoint = new(radius, 0f, 0f);
-        Vector3 farPoint = new(radius + width, 0f, 0f);
+        Vector3 nearPoint = new(nearRadius, 0f, 0f);
+        Vector3 farPoint = new(farRadius, 0f, 0f);
         Vector3 currPoint;
         Vector3 currVertical = Vector3.up;
 
@@ -45,7 +52,7 @@ public class CurveGenerator : MonoBehaviour, IMeshGenerator {
         for (i = 0; i <= widthSubdivisions + 1; i++) {
             currPoint = Vector3.Lerp(nearPoint, farPoint, i * wt);
             if (absolute) {
-                currVertical.y = modifier.Evaluate(-currPoint.z / size, currPoint.x / size);
+                currVertical.y = modifier.Evaluate(-currPoint.z / Radius, currPoint.x / Radius);
             }
             else {
                 currVertical.y = modifier.Evaluate(0, i * wt);
@@ -62,7 +69,7 @@ public class CurveGenerator : MonoBehaviour, IMeshGenerator {
             for (int j = 0; j <= widthSubdivisions + 1; j++) {
                 currPoint = Vector3.Lerp(nearPoint, farPoint, j * wt);
                 if (absolute) {
-                    currVertical.y = modifier.Evaluate(-currPoint.z / size, currPoint.x / size);
+                    currVertical.y = modifier.Evaluate(-currPoint.z / Radius, currPoint.x / Radius);
                 }
                 else {
                     currVertical.y = modifier.Evaluate((i + 1) * t, j * wt);

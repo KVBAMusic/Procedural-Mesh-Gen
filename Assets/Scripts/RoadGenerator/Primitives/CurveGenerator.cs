@@ -9,8 +9,8 @@ public class CurveGenerator : MonoBehaviour, IMeshGenerator {
     [Header("Geometry")]
     public float margin = 1;
     public CornerSize cornerSize;
-    public uint subdivisions;
-    public uint widthSubdivisions;
+    public uint subdivisions = 15;
+    public uint widthSubdivisions = 15;
     [Header("Materials")]
     public List<Material> materials;
     public bool flipUvs;
@@ -33,6 +33,13 @@ public class CurveGenerator : MonoBehaviour, IMeshGenerator {
 
         float nearRadius = margin + Radius - 10f;
         float farRadius = Radius - margin;
+
+        float uvScale = cornerSize switch {
+            CornerSize.Small => 1,
+            CornerSize.Medium => 3,
+            CornerSize.Large => 5,
+            _ => 1
+        };
 
         List<Vector3> verts = new();
         List<int> inds = new();
@@ -59,7 +66,7 @@ public class CurveGenerator : MonoBehaviour, IMeshGenerator {
             }
 
             verts.Add(currPoint + currVertical);
-            uvs.Add(new(1 - i * wt, flipUvs ? 1 : 0));
+            uvs.Add(new(1 - i * wt, flipUvs ? uvScale : 0));
         }
 
         for (i = 0; i < subdivisions + 1; i++) {
@@ -76,7 +83,7 @@ public class CurveGenerator : MonoBehaviour, IMeshGenerator {
                 }
 
                 verts.Add(currPoint + currVertical);
-                uvs.Add(new(1 - j * wt, flipUvs ? 1 - (i + 1) * t : (i + 1) * t ));
+                uvs.Add(new(1 - j * wt, flipUvs ? 1 - (i + 1) * t * uvScale: (i + 1) * t * uvScale));
             }
 
         }

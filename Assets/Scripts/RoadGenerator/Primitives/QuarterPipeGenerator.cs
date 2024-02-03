@@ -16,7 +16,7 @@ namespace MeshGenRoads {
         [Header("Materials")]
         public List<Material> materials;
         public bool flipUvs;
-        private bool flipNormals = false;
+        public bool flipNormals = false;
         [Header("Modifier")]
         public SurfaceModifier modifier = new();
 

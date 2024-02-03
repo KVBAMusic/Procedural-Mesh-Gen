@@ -9,7 +9,6 @@ public class StraightRoadGenerator : MonoBehaviour, IMeshGenerator {
     const float length = 10;
     [Header("Geometry")]
     public float margin = 1;
-    public float width = 8;
     public uint subdivisions = 15;
     public uint widthSubdivisions = 15;
     [Header("Materials")]
@@ -19,7 +18,7 @@ public class StraightRoadGenerator : MonoBehaviour, IMeshGenerator {
     public SurfaceModifier modifier = new();
 
     public Mesh Generate() {
-        if (margin < 0f || width < 0f) {
+        if (margin < 0f) {
             Debug.LogError("Margin and width cannot be negative");
             return null;
         }
@@ -30,7 +29,7 @@ public class StraightRoadGenerator : MonoBehaviour, IMeshGenerator {
         Mesh mesh = new();
 
         Vector3 nearPoint = new(margin, 0f, 0f);
-        Vector3 farPoint = new(margin + width, 0f, 0f);
+        Vector3 farPoint = new(length - margin, 0f, 0f);
         Vector3 currPoint;
 
         Vector3 currVertical = Vector3.up;
@@ -59,7 +58,6 @@ public class StraightRoadGenerator : MonoBehaviour, IMeshGenerator {
                 verts.Add(currPoint + currVertical);
                 uvs.Add(new(1 - j * wt, flipUvs ? 1 - (i + 1) * t : (i + 1) * t ));
             }
-
         }
 
         for (int y = 0; y < subdivisions + 1; y++) {
